@@ -31,28 +31,12 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void rotate(int[] nums, int k) {
-        int[] num = new int[nums.length];
-        if (nums.length != 1 && nums.length != k){
-            if (nums.length > k){
-                int j =  nums.length - k;
-            for (int i = 0; i < num.length; i++) {
-                if (i < k && i != 0){
-                    j++;
-                }else if (i >= k){
-                    j = i - k;
-                }
-                num[i] = nums[j];
+        int n = nums.length;
+        int[] newArr = new int[n];
+        for (int i = 0; i < n; ++i) {
+            newArr[(i + k) % n] = nums[i];
         }
-            } else if (k > nums.length){
-                for (int i = nums.length - 1,j = 0; i >= 0; i--,j++) {
-                    num[j] = nums[i];
-                }
-            }
-            for (int i = 0; i < nums.length; i++) {
-                nums[i] = num[i];
-            }
-        }
-
+        System.arraycopy(newArr, 0, nums, 0, n);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
