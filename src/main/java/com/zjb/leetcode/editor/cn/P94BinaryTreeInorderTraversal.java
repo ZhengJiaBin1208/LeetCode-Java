@@ -44,6 +44,7 @@ package main.java.com.zjb.leetcode.editor.cn;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 //Java：二叉树的中序遍历
 //创建时间：2024-04-03 17:31:40
@@ -74,13 +75,28 @@ class Solution {
         inorder(root, res);
         return res;
     }
+//    private void inorder(TreeNode root, List<Integer> res) {
+//        if (root == null){
+//            return;
+//        }
+//        inorder(root.left, res);
+//        res.add(root.val);
+//        inorder(root.right, res);
+//    }
     private void inorder(TreeNode root, List<Integer> res) {
-        if (root == null){
-            return;
+        if (root != null){
+          Stack<TreeNode> stack = new Stack<>();
+          while (!stack.isEmpty() || root != null){
+              if (root != null){
+                  stack.push(root);
+                  root = root.left;
+              }else {
+                  root = stack.pop();
+                  res.add(root.val);
+                  root = root.right;
+              }
+          }
         }
-        inorder(root.left, res);
-        res.add(root.val);
-        inorder(root.right, res);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

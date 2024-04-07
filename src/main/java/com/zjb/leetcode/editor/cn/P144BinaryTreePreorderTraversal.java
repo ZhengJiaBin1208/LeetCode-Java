@@ -58,6 +58,7 @@ package main.java.com.zjb.leetcode.editor.cn;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 //Java：二叉树的前序遍历
 //创建时间：2024-04-03 17:37:36
@@ -88,13 +89,29 @@ class Solution {
         preorder(root, res);
         return res;
     }
+//    private void preorder(TreeNode root, List<Integer> res) {
+//        if (root == null) {
+//            return;
+//        }
+//        res.add(root.val);
+//        preorder(root.left, res);
+//        preorder(root.right, res);
+//    }
     private void preorder(TreeNode root, List<Integer> res) {
-        if (root == null) {
-            return;
+        if (root != null){
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.isEmpty()){
+                root = stack.pop();
+                res.add(root.val);
+                if (root.right != null){
+                    stack.push(root.right);
+                }
+                if (root.left != null){
+                    stack.push(root.left);
+                }
+            }
         }
-        res.add(root.val);
-        preorder(root.left, res);
-        preorder(root.right, res);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

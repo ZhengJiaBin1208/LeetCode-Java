@@ -44,6 +44,7 @@ package main.java.com.zjb.leetcode.editor.cn;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 //Java：二叉树的后序遍历
 //创建时间：2024-04-03 17:45:05
@@ -74,13 +75,55 @@ class Solution {
         postorder(root, res);
         return res;
     }
+//    private void postorder(TreeNode root, List<Integer> res) {
+//        if (root == null) {
+//            return;
+//        }
+//        postorder(root.left, res);
+//        postorder(root.right, res);
+//        res.add(root.val);
+//    }
+
+//    private void postorder(TreeNode root, List<Integer> res) {
+//        if (root != null){
+//           Stack<TreeNode> stack = new Stack<>();
+//           Stack<TreeNode> collect = new Stack<>();
+//           stack.push(root);
+//           while (!stack.isEmpty()){
+//               root = stack.pop();
+//               collect.push(root);
+//               if (root.left != null){
+//                   stack.push(root.left);
+//               }
+//               if (root.right != null){
+//                   stack.push(root.right);
+//               }
+//           }
+//           while (!collect.isEmpty()){
+//               res.add(collect.pop().val);
+//           }
+//        }
+//    }
+
     private void postorder(TreeNode root, List<Integer> res) {
-        if (root == null) {
-            return;
+        if (root != null){
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.isEmpty()){
+                TreeNode collect = stack.peek();
+                if (collect.left != null
+                    && root != collect.left
+                    && root != collect.right){
+                    stack.push(collect.left);
+                } else if (collect.right != null
+                    && root != collect.right){
+                    stack.push(collect.right);
+                }else {
+                    res.add(collect.val);
+                    root = stack.pop();
+                }
+            }
         }
-        postorder(root.left, res);
-        postorder(root.right, res);
-        res.add(root.val);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
